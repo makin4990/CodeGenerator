@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp1.Generator;
+using WpfApp1.Generator.Factories;
 
 namespace WpfApp1
 {
@@ -52,5 +54,39 @@ namespace WpfApp1
 
 
         }
+        public static void CreateAndSaveProject(List<string> projects)
+        {
+
+            List<ClassModel> classNameList = new List<ClassModel>();
+
+            foreach (var project in projects) 
+            {
+                ICodeGeneratorFactory factory = CreateFactory(project);
+                factory.Generate(classNameList);
+            }
+
+      
+
+        }
+        private static ICodeGeneratorFactory CreateFactory(string type)
+        {
+            switch (type)
+            {
+                case "Domain":
+                   return new DomainFactory();
+                case "Application":
+                    return new ApplicationFactory();
+                case "Infrastructure":
+                    return new InfrastructureFactory();
+                case "Persistence":
+                    return new PersistenceFactory();
+                case "Api":
+                    return new ApiFactory();
+                default:
+                    return null;
+            }
+
+        }
+
     }
 }

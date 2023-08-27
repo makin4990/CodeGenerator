@@ -89,6 +89,18 @@
     </Compile>
     <Compile Include="ClassProperty.cs" />
     <Compile Include="ClassService.cs" />
+    <Compile Include="Generator\Factories\ApiFactory.cs" />
+    <Compile Include="Generator\Factories\ApplicationFactory.cs" />
+    <Compile Include="Generator\Factories\DomainFactory.cs" />
+    <Compile Include="Generator\Factories\InfrastructureFactory.cs" />
+    <Compile Include="Generator\Factories\PersistenceFactory.cs" />
+    <Compile Include="Generator\Generators\ApiGenerator.cs" />
+    <Compile Include="Generator\ICodeGeneratorFactory.cs" />
+    <Compile Include="Generator\Generators\DomainGenerator.cs" />
+    <Compile Include="Generator\Generators\InfrastructureGenerator.cs" />
+    <Compile Include="Generator\Generators\PersistenceGenerator.cs" />
+    <Compile Include="Generator\Generators\ApplicationGenerator.cs" />
+    <Compile Include="Generator\Generator.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ClassModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
