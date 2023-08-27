@@ -18,5 +18,20 @@ namespace WpfApp1
         public string AccessModifier { get; set; }
         public string Name { get; set; }
         public virtual ObservableCollection<ClassProperty> ClassProperties { get; set; }
+        public string ToClass(string classNamsace)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"namespace classNamsace;");
+            builder.AppendLine($"{AccessModifier} class {Name}");
+            builder.AppendLine("{");
+
+            foreach (var property in ClassProperties)
+            {
+                builder.AppendLine(property.ToString());
+            }
+
+            builder.AppendLine("}");
+            return builder.ToString();
+        }
     }
 }
