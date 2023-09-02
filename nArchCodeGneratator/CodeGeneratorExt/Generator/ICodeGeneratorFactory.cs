@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfApp1.Models;
+using CodeGeneratorExt.Models;
 
-namespace WpfApp1.Generator
+namespace CodeGeneratorExt.Generator
 {
     public interface ICodeGeneratorFactory
     {
-        Generator Generate(List<ClassModel> classNameList);
+        Generator Generate(List<ClassModel> classNameList, string basePath);
     }
 
 }

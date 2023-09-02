@@ -1,20 +1,11 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
+using WpfApp1.Models;
+using WpfApp1.Services;
 
 namespace WpfApp1
 {
@@ -24,6 +15,7 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         public ObservableCollection<ClassModel> ClassModelList;
+        public List<string> NameSpaces = new List<string>();
         public ICommand EditCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public MainWindow()
@@ -35,6 +27,12 @@ namespace WpfApp1
             ClassModelList = ClassService.Instance.ClassModelList;
             listView.ItemsSource = ClassService.Instance.ClassModelList; 
         }
+        //public MainWindow(List<string> nameSpaces):this()
+        //{
+
+        //    NameSpaces = nameSpaces;
+                
+        //}
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

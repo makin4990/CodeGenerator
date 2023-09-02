@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace WpfApp1.Models
 {
     public class ClassModel
     {
@@ -22,7 +22,14 @@ namespace WpfApp1
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"namespace classNamsace;");
-            builder.AppendLine($"{AccessModifier} class {Name}");
+            if (classNamsace.Contains("Domain"))
+            {
+                builder.AppendLine($"{AccessModifier} class {Name}:Entity");
+            }
+            else
+            {
+                builder.AppendLine($"{AccessModifier} class {Name}");
+            }
             builder.AppendLine("{");
 
             foreach (var property in ClassProperties)

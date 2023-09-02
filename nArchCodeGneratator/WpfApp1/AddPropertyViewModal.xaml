@@ -17,7 +17,7 @@
             <Border Background="WhiteSmoke" Margin="10 20" CornerRadius="5" Height="493">
                 <StackPanel Width="480" HorizontalAlignment="left" Margin="20">
                     
-                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="left" Text="Please enter your credentials">
+                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Left" Text="Please enter your credentials">
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
 

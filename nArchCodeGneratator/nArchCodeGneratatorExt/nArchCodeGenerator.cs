@@ -7,6 +7,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using WpfApp1;
 using Task = System.Threading.Tasks.Task;
 
 namespace nArchCodeGneratatorExt
@@ -88,15 +89,13 @@ namespace nArchCodeGneratatorExt
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
-            List<string> entityNames = new EntityScanner().GetEntityClassNames();
-            foreach (var item in entityNames)
-            {
-                Console.WriteLine(item);
-            }
+            List<string> nameSpaces = new EntityScanner().GetNameSpaces();
+            MainWindow wpfWindow = new MainWindow();
+            wpfWindow.Show();
 
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
             string title = "nArchCodeGenerator";
 

@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using WpfApp1.Models;
+using CodeGeneratorExt.Models;
 
-namespace WpfApp1.Generator
+namespace CodeGeneratorExt.Generator
 {
     public class DomainGenerator : Generator
     {
         private readonly List<ClassModel> _classList;
+        private readonly string _basePath;
 
-        public DomainGenerator(List<ClassModel> classList)
+        public DomainGenerator(List<ClassModel> classList, string basePath)
         {
             _classList = classList;
+            _basePath = basePath;
         }
 
         public override void Generate()
         {
             string nameSpace = "Domain";
-            string filePath = string.Empty;
+            string filePath = _basePath  +  @"\BloodBrother.Domain\Entities";
             foreach (var @class in _classList)
             {
                 string fullPath = Path.Combine(filePath, (@class.Name+".cs"));

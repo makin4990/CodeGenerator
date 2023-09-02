@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -17,8 +16,8 @@
         <StackPanel >
             <Border Background="WhiteSmoke" Margin="10 20" CornerRadius="5">
                 <StackPanel Margin="25">
-                    <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="left" Text="Please enter your credentials">
-                    </TextBlock>
+                    <!--<TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" HorizontalAlignment="Left" Text="Please enter your credentials">
+                    </TextBlock>-->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
 
                         <ComboBox x:Name="accessModifiers" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Access Modifier" Width="100" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged">
