@@ -37,7 +37,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                string createPath = _basePath  +  @$"\BloodBrother.Application\Features\Commands\Create{model.Name}\Create{model.Name}Command.cs";
+                string createPath = _basePath  +  @$"\Features\Commands\Create{model.Name}\Create{model.Name}Command.cs";
                
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Dtos;");
@@ -92,7 +92,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                string createPath = _basePath  +  @$"\BloodBrother.Application\Features\Commands\Update{model.Name}\Update{model.Name}Command.cs";
+                string createPath = _basePath  +  @$"\Features\Commands\Update{model.Name}\Update{model.Name}Command.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Commands.Create{model.Name};");
@@ -149,7 +149,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
 
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}Features\Dtos";
+                var path = _basePath  +  @$"\Features\{model.Name}Features\Dtos";
                
                 var createClassCode = model.ToCreateDto();
                 File.WriteAllText(path, createClassCode);
@@ -170,7 +170,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}Features\Dtos";
+                var path = _basePath  +  @$"\Features\{model.Name}Features\Dtos";
              
                 sb.AppendLine("using CoreFramework.Persistence.Paging;");
                 sb.AppendLine("");
@@ -189,7 +189,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}Features\Profiles\MappingProfiles.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}Features\Profiles\MappingProfiles.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Commands.Create{model.Name};");
@@ -223,7 +223,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}Features\Queries\GetList{model.Name}\GetList{model.Name}Query.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}Features\Queries\GetList{model.Name}\GetList{model.Name}Query.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Models;");
@@ -265,7 +265,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}Features\Queries\Get{model.Name}ById\Get{model.Name}ByIdQuery.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}Features\Queries\Get{model.Name}ById\Get{model.Name}ByIdQuery.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Dtos;");
@@ -307,7 +307,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}Features\Queries\GetList{model.Name}ByDynamic\GetList{model.Name}ByDynamicQuery.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}Features\Queries\GetList{model.Name}ByDynamic\GetList{model.Name}ByDynamicQuery.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}.Models;");
@@ -359,7 +359,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Features\{model.Name}\Constants\OperationClaims.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}\Constants\OperationClaims.cs";
 
                 sb.AppendLine($" BloodBrother.Application.Features.{model.Name}.Constants");
                 sb.AppendLine("{");
@@ -378,7 +378,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\BloodBrother.Application\Services\Repositories\I{model.Name}Repository.cs";
+                var path = _basePath  +  @$"\Services\Repositories\I{model.Name}Repository.cs";
 
                 sb.AppendLine("using BloodBrother.Domain.Entities;");
                 sb.AppendLine("using CoreFramework.Persistence.Repositories;");

@@ -21,7 +21,7 @@ namespace CodeGeneratorExt.Generator
         {
             foreach (var model in _classList)
             {
-                string path = _basePath  +  @$"\BloodBrother.WebAPI\BloodBrother.WebAPI\Controllers\{model.Name}Controller.cs";
+                string path = _basePath  +  @$"\Controllers\{model.Name}Controller.cs";
                 StringBuilder sb = new();
                 sb.AppendLine("using BloodBrother.Application.Features.{model.Name]Features.Commands.Create{model.Name];");
                 sb.AppendLine("using BloodBrother.Application.Features.{model.Name]Features.Dtos;");

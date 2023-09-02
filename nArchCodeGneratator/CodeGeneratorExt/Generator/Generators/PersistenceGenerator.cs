@@ -25,7 +25,7 @@ public class PersistenceGenerator : Generator
     }
     private void GeneratePersistenceServiceRegistration()
     {
-        var filePath = _basePath  +  @"\BloodBrother.Persistence\PersistenceServiceRegistration.cs";
+        var filePath = _basePath  +  @"\PersistenceServiceRegistration.cs";
         string fileContent = File.ReadAllText(filePath);
 
         string[] lines = fileContent.Split('\n');
@@ -68,7 +68,7 @@ public class PersistenceGenerator : Generator
         foreach (var model in _classList)
         {
             StringBuilder sb = new StringBuilder();
-            string path = _basePath  +  @$"\BloodBrother.Persistence\Repositories\{model.Name}Repository.cs";
+            string path = _basePath  +  @$"\Repositories\{model.Name}Repository.cs";
 
             sb.AppendLine("using BloodBrother.Application.Services.Repositories;");
             sb.AppendLine("using BloodBrother.Domain.Entities;");

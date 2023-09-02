@@ -86,15 +86,23 @@ namespace CodeGeneratorExt
         private void metroButton2_Click(object sender, EventArgs e)
         {
             var basePath = VS.Solutions.GetCurrentSolution().FullPath.Split('.').First();
-           
+
+            var projects = VS.Solutions.GetAllProjectsAsync().Result.Where(i=> !i.Text.StartsWith("Core"));
+
+            var domainPath = projects.First(i => i.Text.EndsWith("Domain")).FullPath.Split('.').First();
+            var applicaitonPath = projects.First(i => i.Text.EndsWith("Application")).FullPath.Split('.').First();
+            var persistencePath = projects.First(i => i.Text.EndsWith("Persistence")).FullPath.Split('.').First();
+            var webApiPath = projects.First(i => i.Text.EndsWith("WebAPI")).FullPath.Split('.').First();
+
             var classModelList = ClassService.Instance.ClassModelList.ToList();
 
+
             ICodeGeneratorFactory ApiFactory = new ApiFactory();
-            Generator.Generator ApiGenerator = ApiFactory.Generate(classModelList, basePath);
+            Generator.Generator ApiGenerator = ApiFactory.Generate(classModelList, domainPath);
             ApiGenerator.Generate();
 
             ICodeGeneratorFactory ApplicationFactory = new ApplicationFactory();
-            Generator.Generator ApplicationGenerator = ApplicationFactory.Generate(classModelList, basePath);
+            Generator.Generator ApplicationGenerator = ApplicationFactory.Generate(classModelList, applicaitonPath);
             ApplicationGenerator.Generate();
 
             ICodeGeneratorFactory DomainFactory = new DomainFactory();
@@ -102,7 +110,7 @@ namespace CodeGeneratorExt
             DomainGenerator.Generate();
 
             ICodeGeneratorFactory PersistenceFactory = new PersistenceFactory();
-            Generator.Generator PersistenceGenerator = PersistenceFactory.Generate(classModelList, basePath);
+            Generator.Generator PersistenceGenerator = PersistenceFactory.Generate(classModelList, persistencePath);
             PersistenceGenerator.Generate();
 
         }

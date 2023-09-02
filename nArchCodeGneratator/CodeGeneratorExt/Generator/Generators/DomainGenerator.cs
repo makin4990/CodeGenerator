@@ -18,7 +18,7 @@ namespace CodeGeneratorExt.Generator
         public override void Generate()
         {
             string nameSpace = "Domain";
-            string filePath = _basePath  +  @"\BloodBrother.Domain\Entities";
+            string filePath = _basePath  +  @"\Entities";
             foreach (var @class in _classList)
             {
                 string fullPath = Path.Combine(filePath, (@class.Name+".cs"));
