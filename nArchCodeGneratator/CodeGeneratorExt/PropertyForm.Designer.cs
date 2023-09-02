@@ -175,8 +175,10 @@
             this.metroComboBox2.FormattingEnabled = true;
             this.metroComboBox2.ItemHeight = 23;
             this.metroComboBox2.Items.AddRange(new object[] {
-            "public",
-            "private"});
+            "string",
+            "int",
+            "DateTime",
+            "bool"});
             this.metroComboBox2.Location = new System.Drawing.Point(156, 62);
             this.metroComboBox2.Name = "metroComboBox2";
             this.metroComboBox2.Size = new System.Drawing.Size(121, 29);

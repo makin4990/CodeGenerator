@@ -89,6 +89,14 @@ namespace CodeGeneratorExt
            
             var classModelList = ClassService.Instance.ClassModelList.ToList();
 
+            ICodeGeneratorFactory ApiFactory = new ApiFactory();
+            Generator.Generator ApiGenerator = ApiFactory.Generate(classModelList, basePath);
+            ApiGenerator.Generate();
+
+            ICodeGeneratorFactory ApplicationFactory = new ApplicationFactory();
+            Generator.Generator ApplicationGenerator = ApplicationFactory.Generate(classModelList, basePath);
+            ApplicationGenerator.Generate();
+
             ICodeGeneratorFactory DomainFactory = new DomainFactory();
             Generator.Generator DomainGenerator = DomainFactory.Generate(classModelList, basePath);
             DomainGenerator.Generate();
@@ -96,6 +104,7 @@ namespace CodeGeneratorExt
             ICodeGeneratorFactory PersistenceFactory = new PersistenceFactory();
             Generator.Generator PersistenceGenerator = PersistenceFactory.Generate(classModelList, basePath);
             PersistenceGenerator.Generate();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

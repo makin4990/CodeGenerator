@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using CodeGeneratorExt.Models;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Shapes;
-using CodeGeneratorExt.Models;
-using EnvDTE;
-using Microsoft.VisualStudio.RpcContracts.Commands;
 
 namespace CodeGeneratorExt.Generator
 {
