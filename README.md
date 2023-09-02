@@ -24,15 +24,4 @@ This code generator is designed to streamline the process of setting up a projec
 
 ### Prerequisites
 
-Before using this code generator, ensure you have the following prerequisites installed:
 
-- [Node.js](https://nodejs.org/) - version X.X.X
-- [npm](https://www.npmjs.com/) - version X.X.X
-- [Your Other Dependencies]
-
-### Installation
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/your/repo.git
