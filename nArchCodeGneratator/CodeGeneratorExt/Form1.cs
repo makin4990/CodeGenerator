@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,16 +90,16 @@ namespace CodeGeneratorExt
 
             var projects = VS.Solutions.GetAllProjectsAsync().Result.Where(i=> !i.Text.StartsWith("Core"));
 
-            var domainPath = projects.First(i => i.Text.EndsWith("Domain")).FullPath.Split('.').First();
-            var applicaitonPath = projects.First(i => i.Text.EndsWith("Application")).FullPath.Split('.').First();
-            var persistencePath = projects.First(i => i.Text.EndsWith("Persistence")).FullPath.Split('.').First();
-            var webApiPath = projects.First(i => i.Text.EndsWith("WebAPI")).FullPath.Split('.').First();
-
+            var domainPath = Path.GetDirectoryName(projects.First(i => i.Text.EndsWith("Domain")).FullPath);
+            var applicaitonPath = Path.GetDirectoryName(projects.First(i => i.Text.EndsWith("Application")).FullPath);
+            var persistencePath = Path.GetDirectoryName(projects.First(i => i.Text.EndsWith("Persistence")).FullPath);
+            var webApiPath = Path.GetDirectoryName(projects.First(i => i.Text.EndsWith("WebAPI")).FullPath);
+          
             var classModelList = ClassService.Instance.ClassModelList.ToList();
 
 
             ICodeGeneratorFactory ApiFactory = new ApiFactory();
-            Generator.Generator ApiGenerator = ApiFactory.Generate(classModelList, domainPath);
+            Generator.Generator ApiGenerator = ApiFactory.Generate(classModelList, webApiPath);
             ApiGenerator.Generate();
 
             ICodeGeneratorFactory ApplicationFactory = new ApplicationFactory();
@@ -106,7 +107,7 @@ namespace CodeGeneratorExt
             ApplicationGenerator.Generate();
 
             ICodeGeneratorFactory DomainFactory = new DomainFactory();
-            Generator.Generator DomainGenerator = DomainFactory.Generate(classModelList, basePath);
+            Generator.Generator DomainGenerator = DomainFactory.Generate(classModelList, domainPath);
             DomainGenerator.Generate();
 
             ICodeGeneratorFactory PersistenceFactory = new PersistenceFactory();

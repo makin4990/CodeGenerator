@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Windows.Shapes;
 using CodeGeneratorExt.Models;
 
 namespace CodeGeneratorExt.Generator
@@ -21,8 +22,13 @@ namespace CodeGeneratorExt.Generator
             string filePath = _basePath  +  @"\Entities";
             foreach (var @class in _classList)
             {
-                string fullPath = Path.Combine(filePath, (@class.Name+".cs"));
+                string fullPath = System.IO.Path.Combine(filePath, (@class.Name+".cs"));
                 var classCode = @class.ToClass(nameSpace);
+
+            
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(filePath);
+
                 File.WriteAllText(fullPath, classCode);
 
             }

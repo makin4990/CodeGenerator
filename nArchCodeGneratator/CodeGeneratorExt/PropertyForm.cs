@@ -37,7 +37,7 @@ namespace CodeGeneratorExt
         private void metroButton1_Click(object sender, EventArgs e)
         {
             string accessModifier = metroComboBox1.SelectedItem.ToString();
-            string  type = metroComboBox1.SelectedItem.ToString();
+            string  type = metroComboBox2.SelectedItem.ToString();
             string nameValue = metroTextBox1.Text;
 
             if (!string.IsNullOrEmpty(accessModifier) && !string.IsNullOrEmpty(type) && !string.IsNullOrEmpty(nameValue))

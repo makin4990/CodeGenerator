@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows.Shapes;
 using CodeGeneratorExt.Models;
 
 namespace CodeGeneratorExt.Generator
@@ -37,7 +39,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                string createPath = _basePath  +  @$"\Features\Commands\Create{model.Name}\Create{model.Name}Command.cs";
+                string createPath = _basePath  +  @$"\Features\{model.Name}\Commands\Create{model.Name}\Create{model.Name}Command.cs";
                
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Dtos;");
@@ -80,6 +82,10 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("}");
 
                 var classCode = sb.ToString();
+                string directoryPath = System.IO.Path.GetDirectoryName(createPath);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(createPath, classCode);
               
 
@@ -92,7 +98,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                string createPath = _basePath  +  @$"\Features\Commands\Update{model.Name}\Update{model.Name}Command.cs";
+                string createPath = _basePath  +  @$"\Features\{model.Name}\Commands\Update{model.Name}\Update{model.Name}Command.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Commands.Create{model.Name};");
@@ -141,6 +147,11 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("");
 
                 var classCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(createPath);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(createPath, classCode);
             }
         }
@@ -149,19 +160,24 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
 
-                var path = _basePath  +  @$"\Features\{model.Name}Features\Dtos";
-               
+                var path = _basePath  +  @$"\Features\{model.Name}\Dtos\";
+
+
+                
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
                 var createClassCode = model.ToCreateDto();
-                File.WriteAllText(path, createClassCode);
+                File.WriteAllText(path+$"Create{model.Name}Dto.cs", createClassCode);
 
                 var updateClassCode = model.ToUpdateDto();
-                File.WriteAllText(path, updateClassCode);
+                File.WriteAllText(path + $"Update{model.Name}Dto.cs", updateClassCode);
 
                 var listClassCode = model.ToListModel();
-                File.WriteAllText(path, listClassCode);
+                File.WriteAllText(path + $"{model.Name}ListModelDto.cs", listClassCode);
 
                 var dtoCode = model.ToDto();
-                File.WriteAllText(path, dtoCode);
+                File.WriteAllText(path + $"{model.Name}Dto.cs", dtoCode);
 
             }
         }
@@ -170,7 +186,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\Features\{model.Name}Features\Dtos";
+                var path = _basePath  +  @$"\Features\{model.Name}\Models\{model.Name}ListModel.cs";
              
                 sb.AppendLine("using CoreFramework.Persistence.Paging;");
                 sb.AppendLine("");
@@ -181,6 +197,11 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("}");
 
                 var createClassCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(path, createClassCode);
             }
         }
@@ -189,7 +210,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\Features\{model.Name}Features\Profiles\MappingProfiles.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}\Profiles\MappingProfiles.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Commands.Create{model.Name};");
@@ -204,18 +225,26 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("{");
                 sb.AppendLine("    public MappingProfiles()");
                 sb.AppendLine("    {");
-                sb.AppendLine("        CreateMap<{model.Name}, {model.Name}ListModelDto>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<{model.Name}, {model.Name}ListModelDto>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
                 sb.AppendLine("");
-                sb.AppendLine("        CreateMap<IPaginate<{model.Name}>, {model.Name}ListModel>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
-                sb.AppendLine("        CreateMap<Create{model.Name}Command, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
-                sb.AppendLine("        CreateMap<Update{model.Name}Command, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
-                sb.AppendLine("        CreateMap<Create{model.Name}Dto, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
-                sb.AppendLine("        CreateMap<Update{model.Name}Dto, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
-                sb.AppendLine("        CreateMap<{model.Name}Dto, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<IPaginate<{model.Name}>, {model.Name}ListModel>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<Create{model.Name}Command, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<Update{model.Name}Command, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<Create{model.Name}Dto, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<Update{model.Name}Dto, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
+                sb.AppendLine($"        CreateMap<{model.Name}Dto, {model.Name}>().ReverseMap().ForAllMembers(opt => opt.Condition(src => src != null));");
                 sb.AppendLine("");
                 sb.AppendLine("    }");
                 sb.AppendLine("}");
                 sb.AppendLine("");
+
+                var createClassCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
+                File.WriteAllText(path, createClassCode);
             }
         }
         private void GetListPartyQueries()
@@ -223,7 +252,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\Features\{model.Name}Features\Queries\GetList{model.Name}\GetList{model.Name}Query.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}\Queries\GetList{model.Name}\GetList{model.Name}Query.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Models;");
@@ -258,6 +287,14 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("    }");
                 sb.AppendLine("}");
                 sb.AppendLine("");
+
+                var createClassCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
+                File.WriteAllText(path, createClassCode);
             }
         }
         private void GetPartyByIdQueries()
@@ -265,7 +302,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\Features\{model.Name}Features\Queries\Get{model.Name}ById\Get{model.Name}ByIdQuery.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}\Queries\Get{model.Name}ById\Get{model.Name}ByIdQuery.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Dtos;");
@@ -299,6 +336,11 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("}");
 
                 string getByIdQueryCode = sb.ToString();
+                
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(path, getByIdQueryCode);
             }
         }
@@ -307,7 +349,7 @@ namespace CodeGeneratorExt.Generator
             foreach (var model in _classList)
             {
                 StringBuilder sb = new StringBuilder();
-                var path = _basePath  +  @$"\Features\{model.Name}Features\Queries\GetList{model.Name}ByDynamic\GetList{model.Name}ByDynamicQuery.cs";
+                var path = _basePath  +  @$"\Features\{model.Name}\Queries\GetList{model.Name}ByDynamic\GetList{model.Name}ByDynamicQuery.cs";
 
                 sb.AppendLine("using AutoMapper;");
                 sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}.Models;");
@@ -351,6 +393,11 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("}");
 
                 string getListByDynamicCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(path, getListByDynamicCode);
             }
         }
@@ -361,15 +408,20 @@ namespace CodeGeneratorExt.Generator
                 StringBuilder sb = new StringBuilder();
                 var path = _basePath  +  @$"\Features\{model.Name}\Constants\OperationClaims.cs";
 
-                sb.AppendLine($" BloodBrother.Application.Features.{model.Name}.Constants");
+                sb.AppendLine($"namespace BloodBrother.Application.Features.{model.Name}.Constants");
                 sb.AppendLine("{");
                 sb.AppendLine("    public static class OperationClaims");
                 sb.AppendLine("    {");
-                sb.AppendLine($"        public const string {model.Name}Add = \"{model.Name}\";");
+                sb.AppendLine($"        public const string {model.Name}Add = \"{model.Name}.add\";");
                 sb.AppendLine("    }");
                 sb.AppendLine("}");
 
                 string getListByDynamicCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(path, getListByDynamicCode);
             }
         }
@@ -392,6 +444,11 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("");
 
                 string repositoryServiceCode = sb.ToString();
+
+                string directoryPath = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(path, repositoryServiceCode);
             }
 

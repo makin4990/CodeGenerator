@@ -18,13 +18,13 @@ namespace CodeGeneratorExt.Models
         public string AccessModifier { get; set; }
         public string Name { get; set; }
         public virtual ObservableCollection<ClassProperty> ClassProperties { get; set; }
-        public string ToClass(string classNamsace)
+        public string ToClass(string classNamespace)
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"using CoreFramework.Persistence.Repositories;");
             builder.AppendLine($"");
-            builder.AppendLine($"namespace classNamsace;");
-            if (classNamsace.Contains("Domain"))
+            builder.AppendLine($"namespace {classNamespace};");
+            if (classNamespace.Contains("Domain"))
             {
                 builder.AppendLine($"{AccessModifier} class {Name}:Entity");
             }
@@ -46,9 +46,9 @@ namespace CodeGeneratorExt.Models
         public string ToCreateDto()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"namespace BloodBrother.Application.Features.{Name}Features.Dtos;;");
+            builder.AppendLine($"namespace BloodBrother.Application.Features.{Name}Features.Dtos;");
             builder.AppendLine("");
-            builder.AppendLine("public class Create{Name}Dto");
+            builder.AppendLine($"public class Create{Name}Dto");
             builder.AppendLine("{");
             foreach (var property in ClassProperties)
             {
@@ -61,7 +61,7 @@ namespace CodeGeneratorExt.Models
         public string ToUpdateDto()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"namespace BloodBrother.Application.Features.{Name}Features.Dtos;;");
+            builder.AppendLine($"namespace BloodBrother.Application.Features.{Name}Features.Dtos;");
             builder.AppendLine("");
             builder.AppendLine($"public class Update{Name}Dto");
             builder.AppendLine("{");
@@ -91,7 +91,7 @@ namespace CodeGeneratorExt.Models
         public string ToDto()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"namespace BloodBrother.Application.Features.{Name}Features.Dtos;;");
+            builder.AppendLine($"namespace BloodBrother.Application.Features.{Name}Features.Dtos;");
             builder.AppendLine("");
             builder.AppendLine($"public class {Name}Dto");
             builder.AppendLine("{");

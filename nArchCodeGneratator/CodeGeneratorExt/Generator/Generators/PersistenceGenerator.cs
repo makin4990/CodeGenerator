@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Shapes;
 using CodeGeneratorExt.Models;
 
 namespace CodeGeneratorExt.Generator;
@@ -49,13 +51,18 @@ public class PersistenceGenerator : Generator
                 {
                     if (i == lastServicesIndex+1 && !isAdded)
                     {
-                        string newLine = "            services.AddScoped<I{model.Name}Repository, {model.Name}Repository>();";
+                        string newLine = $"            services.AddScoped<I{model.Name}Repository, {model.Name}Repository>();";
                         newLines.AppendLine(newLine);
                         lastServicesIndex++;
                         isAdded = true;
                     }
                     newLines.Append(lines[i]);
                 }
+                
+               string directoryPath = System.IO.Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(filePath, newLines.ToString());
             }
 
@@ -87,6 +94,11 @@ public class PersistenceGenerator : Generator
             sb.AppendLine("");
 
             string repoCode = sb.ToString();
+
+            string directoryPath = System.IO.Path.GetDirectoryName(path);
+            if (!Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
+
             File.WriteAllText(path, repoCode);
 
         }

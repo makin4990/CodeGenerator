@@ -23,8 +23,8 @@ namespace CodeGeneratorExt.Generator
             {
                 string path = _basePath  +  @$"\Controllers\{model.Name}Controller.cs";
                 StringBuilder sb = new();
-                sb.AppendLine("using BloodBrother.Application.Features.{model.Name]Features.Commands.Create{model.Name];");
-                sb.AppendLine("using BloodBrother.Application.Features.{model.Name]Features.Dtos;");
+                sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Commands.Create{model.Name};");
+                sb.AppendLine($"using BloodBrother.Application.Features.{model.Name}Features.Dtos;");
                 sb.AppendLine("using Microsoft.AspNetCore.Mvc;");
                 sb.AppendLine("");
                 sb.AppendLine("namespace BloodBrother.WebAPI.Controllers");
@@ -48,6 +48,11 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("}");
                 sb.AppendLine("");
                 string controllerCode = sb.ToString();
+
+                string directoryPath = Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 File.WriteAllText(path, controllerCode);
             }
            
@@ -56,7 +61,7 @@ namespace CodeGeneratorExt.Generator
         private string GenerateAddEndPoint()
         {
             StringBuilder sb = new();
-            foreach (var item in _classList)
+            foreach (var model in _classList)
             {
 
 
@@ -66,9 +71,9 @@ namespace CodeGeneratorExt.Generator
                 sb.AppendLine("    {");
                 sb.AppendLine("");
                 sb.AppendLine("        [HttpPost]");
-                sb.AppendLine("        public async Task<IActionResult> Add([FromBody] Create{model.Name]Command create{model.Name]Command)");
+                sb.AppendLine($"        public async Task<IActionResult> Add([FromBody] Create{model.Name}Command create{model.Name}Command)");
                 sb.AppendLine("        {");
-                sb.AppendLine("            Create{model.Name]Dto result = await Mediator.Send(create{model.Name]Command);");
+                sb.AppendLine($"            Create{model.Name}Dto result = await Mediator.Send(create{model.Name}Command);");
                 sb.AppendLine("            return Created(\"\", result);");
                 sb.AppendLine("        }");
                 sb.AppendLine("    }");
