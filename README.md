@@ -56,7 +56,7 @@ To use the CodeGenerator in your project, follow these steps:
 4. Get Extention file from debug folder where it is located
 5. Install Ententions
 6. Open Vs2022 Click on Generator button from Menu > Tool > CodeGenerator
-7. Define Class Access Modifier
+7. Define Class Access Modifier and Name
 8. Click Add button
 9. Click on class you added on datagrid
 10. Define properities
