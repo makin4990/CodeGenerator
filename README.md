@@ -67,5 +67,3 @@ To use the CodeGenerator in your project, follow these steps:
 
 Here's an example command to run the CodeGenerator:
 
-```shell
-dotnet codegen generate
